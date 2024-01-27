@@ -1,16 +1,5 @@
 ### Direct request to Open AI Chat API
 
-POST https://api.openai.com/v1/chat/completions
-Content-Type: application/json
-Authorization: Bearer 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
-
-{
-  "model": "gpt-3.5-turbo",
-  "messages": [{"role": "user", "content": "Say this is a test!"}],
-  "temperature": 0,
-  "n": 1
-}
-
 ### 
 
 POST http://localhost:3000/api/ai

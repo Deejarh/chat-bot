@@ -1,7 +1,7 @@
 
 <script setup lang="ts">
 import { nanoid } from "nanoid";
-import ChatIcon from "@/assets/icons/ChatIcon.vue";
+import anime from 'animejs'
 
 export interface User {
   id: string;
@@ -82,10 +82,33 @@ watch(
   { deep: true }
 );
 
+// Wrap every letter in a span anime
+var textWrapper = document.querySelector('.ml9 .letters');
+textWrapper.innerHTML = textWrapper.textContent?anime.timeline({loop: true})
+  .add({
+    targets: '.ml9 .letter',
+    scale: [0, 1],
+    duration: 1500,
+    elasticity: 600,
+    delay: (el, i) => 45 * (i+1)
+  }).add({
+    targets: '.ml9',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+
 
 </script>
 <template>
   <div class=" w-full ">
+
+    <h1 class="ml9">
+        <span class="text-wrapper">
+          <span class="letters">Coffee mornings</span>
+        </span>
+      </h1>
     <div @click="toggleChatBox" class=" flex items-center justify-center cursor-pointer " v-show="!isOpenChatBox">
     <span class=" mr-2">Chat with DeejarhBot </span>
     <div class="chat-image avatar">
@@ -171,3 +194,26 @@ watch(
     
   </div>
 </template>
+<style>
+.ml9 {
+    position: relative;
+    font-weight: 200;
+    font-size: 4em;
+  }
+  
+  .ml9 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.2em;
+    padding-right: 0.05em;
+    padding-bottom: 0.1em;
+    overflow: hidden;
+  }
+  
+  .ml9 .letter {
+    transform-origin: 50% 100%;
+    display: inline-block;
+    line-height: 1em;
+  }
+
+</style>
