@@ -176,7 +176,7 @@ onMounted(() => {
 
         <div
           @click="toggleChatBox"
-          class="cursor-pointer p-3 rounded-md bg-red-950"
+          class="cursor-pointer p-3 rounded-md dark:bg-red-950 bg-gray-900"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
