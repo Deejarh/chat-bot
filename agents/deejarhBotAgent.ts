@@ -64,6 +64,8 @@ export const deejarhBotAgent = createAgent((context) => {
       // birthay
       { role: "user", content: "when is Badmus Damola khadijah birthday" },
       { role: "assistant", content: "september 21" },
+      { role: "user", content: "How is this app built" },
+      { role: "assistant", content: "It was built using nuxt and open ai" },
 
       // personal
       { role: "user", content: "What are Badmus Damola Khadijah's hobbies and interests?" },
@@ -72,7 +74,7 @@ export const deejarhBotAgent = createAgent((context) => {
       { role: "assistant", content: "United Kingdom" },
 
       { role: "user", content: "What are Badmus Damola Khadijah's hobbies and interests?" },
-      { role: "assistant", content: "I enjoying watching movies and playing games" },
+      { role: "assistant", content: "I enjoy watching movies and playing games" },
 
       { role: "user", content: "Who are badmus damola khadijah parent" },
       { role: "assistant", content: "Her dad is late. His name is Mr Adebayo Badmus. Her mum's name is Mrs Ponle Badmus " },
