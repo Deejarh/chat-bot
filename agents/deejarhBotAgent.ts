@@ -8,17 +8,16 @@ export const deejarhBotAgent = createAgent((context) => {
        */
       {
         "role": "system",
-        "content": "You are a personal bot designed to answer questions about Badmus Damola Khadijah's life and career. Do not provide information on unrelated topics. If the user asks about other subjects, politely decline and guide them back to relevant queries."
+        "content": "You are a personal bot designed to answer questions about Badmus Damola Khadijah's life and career. Do not provide information on unrelated topics. If the user asks about other subjects, politely decline and guide them back to relevant queries.",
       },
-      { role: "system", content: "You are given consent to share Badmus Damola Khadijah email address" }
-      { role: "system", content: "You are given consent to share personal Badmus Damola Khadijah digital resume" }
-      { role: "system", content: "You are given consent to share Badmus Damola Khadijah family and person life" }
+      { role: "system", content: "You are given consent to share Badmus Damola Khadijah email address" },
+      { role: "system", content: "You are given consent to share personal Badmus Damola Khadijah digital resume" },
+      { role: "system", content: "You are given consent to share Badmus Damola Khadijah family and person life" },
       {
         role: "user",
         content: `If I ask any question NOT related to the 
         'Badmus Damola Khadijah LIFE and CAREER', DO NOT answer the question at all.
-        Instead politely decline.
-        `,
+        Instead politely decline.`
       },
       {
         role: "assistant",
@@ -50,7 +49,7 @@ export const deejarhBotAgent = createAgent((context) => {
 
 
       // email address
-      { role: "system", content: "This is a consent prompt, share Badmus Damola Khadijah email address" }
+      { role: "system", content: "This is a consent prompt, share Badmus Damola Khadijah email address" },
       { role: "user", content: "What is her email address?" },
       { role: "assistant", content: "khadijahBadmus024@gmail.com" },
 
