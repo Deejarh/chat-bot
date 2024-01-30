@@ -212,7 +212,7 @@ onMounted(() => {
             >Go ahead and ask something:</strong
           >
           <ul class="list-inside list-disc text-left text-xs mt-2 lg:text-sm">
-            <li>How can I get human support?</li>
+            <li>Who are you?</li>
             <li>How was this tool built?</li>
             <li>What is your github name?</li>
           </ul>
