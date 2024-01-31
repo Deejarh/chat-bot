@@ -263,11 +263,11 @@ animateIcon()
       </div>
       <!-- Footer -->
       <footer class="p-2">
-        <div class=" flex  gap-x-2  p-2 rounded">
-          <input
+        <div class=" flex items-center gap-x-2  p-2 rounded">
+          <textarea
           v-model="userInput"
             ref="input"
-            class="input w-full px-2 block"
+            class="input w-full p-2 block"
             type="text"
             placeholder="Type your message"
             @keypress.enter="
@@ -280,11 +280,11 @@ animateIcon()
               ($event.target as HTMLInputElement).value = '';
 
             "
-          />
+          > </textarea>
 
           <div
             v-show="!isUserMe"
-            class=" text-xs  flex items-center justify-center shadow-sm  px-2 bg-gray-900   rounded-xl hover:bg-gray-950 focus:outline-none"
+            class=" text-xs  flex items-center justify-center shadow-sm  px-2 bg-gray-900 h-10 w-10 lg:h-12 lg:w-12  rounded-md hover:bg-gray-950 focus:outline-none"
             :class="[userInput ? ' cursor-pointer' : 'cursor-not-allowed' ]"
             v-on="userInput ? { click: () => 
         handleNewMessage({
