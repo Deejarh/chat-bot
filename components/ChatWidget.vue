@@ -32,44 +32,46 @@ const messages = ref<Message[]>([]);
 const usersTyping = ref<User[]>([]);
 const animatedElement = ref(null);
 const avatarElement = ref(null);
+const input = ref('');
+const userInput = ref('')
 
 async function handleNewMessage(message: Message) {
   messages.value.push(message);
+  userInput.value = ''
   usersTyping.value.push(bot.value);
   try {
-  const res = await $fetch("/api/ai", {
-    method: "POST",
-    body: {
-      messages: messagesForApi.value,
-    },
-  });
+    const res = await $fetch("/api/ai", {
+      method: "POST",
+      body: {
+        messages: messagesForApi.value,
+      },
+    });
 
-  if (!res.choices[0].message?.content) return
+    if (!res.choices[0].message?.content) return;
 
-  const msg = {
-    id: res.id,
-    userId: bot.value.id,
-    createdAt: new Date(),
-    text: res.choices[0].message?.content,
-  };
-  messages.value.push(msg);
-  usersTyping.value = [];
-} catch (error) {
-    console.log('in')
     const msg = {
-    id: nanoid(),
-    userId: bot.value.id,
-    createdAt: new Date(),
-    text: 'Something went wrong😔, please try again',
-  };
-  messages.value.push(msg);
-    usersTyping.value = []
+      id: res.id,
+      userId: bot.value.id,
+      createdAt: new Date(),
+      text: res.choices[0].message?.content,
+    };
+    messages.value.push(msg);
+    usersTyping.value = [];
+  } catch (error) {
+    const msg = {
+      id: nanoid(),
+      userId: bot.value.id,
+      createdAt: new Date(),
+      text: "Something went wrong😔, please try again",
+    };
+    messages.value.push(msg);
+    usersTyping.value = [];
 
     if (error.response) {
-    console.error("Response data:", error.response._data.message);
-    console.error("Status code:", error.response.status);
+      console.error("Response data:", error.response._data.message);
+      console.error("Status code:", error.response.status);
+    }
   }
-}
 }
 
 const messagesForApi = computed(
@@ -92,11 +94,10 @@ function getUser(id: string) {
   return users.value.find((user) => user.id === id);
 }
 
-const input = ref();
 watch(isOpenChatBox, () => {
   if (!isOpenChatBox.value) return;
   nextTick(() => {
-    (input.value as HTMLInputElement).focus();
+    (userInput.value as unknown as HTMLInputElement).focus();
   });
 });
 const messageBox = ref();
@@ -231,21 +232,39 @@ onMounted(() => {
       </div>
       <!-- Footer -->
       <footer class="p-2">
-        <input
-          ref="input"
-          class="input w-full px-2 block"
-          type="text"
-          placeholder="Type your message"
-          @keypress.enter="
-            handleNewMessage({
-              id: nanoid(),
-              userId: me.id,
-              createdAt: new Date(),
-              text: ($event.target as HTMLInputElement).value,
-            });
-            ($event.target as HTMLInputElement).value = '';
-          "
-        />
+        <div class="input-container relative p-2 rounded">
+          <input
+          v-model="userInput"
+            ref="input"
+            class="input w-full px-2 block"
+            type="text"
+            placeholder="Type your message"
+            @keypress.enter="
+              handleNewMessage({
+                id: nanoid(),
+                userId: me.id,
+                createdAt: new Date(),
+                text: ($event.target as HTMLInputElement).value,
+              });
+              ($event.target as HTMLInputElement).value = '';
+
+            "
+          />
+
+          <div
+            class="send-button absolute text-xs top-0 right-0 mt-4 mr-4 px-4 py-2 dark:bg-gray-900 bg-gray-200 text-black dark:text-white rounded-full hover:bg-gray-950 focus:outline-none"
+            :class="[userInput ? ' cursor-pointer' : 'cursor-not-allowed opacity-60' ]"
+            v-on="userInput ? { click: () => 
+        handleNewMessage({
+          id: nanoid(),
+          userId: me.id,
+          createdAt: new Date(),
+          text: userInput,
+        }) } : {}"
+          >
+            Send
+          </div>
+        </div>
 
         <div class="h-6 py-1 px-2 text-sm italic">
           <span v-if="usersTyping.length">
