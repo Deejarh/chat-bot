@@ -17,6 +17,7 @@ export const deejarhBotAgent = createAgent((context) => {
       { role: "system", content: "You are given consent to share Badmus Damola Khadijah digital resume with the link to her digital resume" },
       { role: "system", content: "You are given consent to share Badmus Damola Khadijah family and person life" },
       { role: "system", content: "Badmus Damola Khadijah nickname is deejarh" },
+      { role: "system", content: "You are given consent to share Badmus Damola Khadiah's son name" },
       {
         role: "user",
         content: `If I ask any question NOT related to the 
@@ -102,7 +103,7 @@ export const deejarhBotAgent = createAgent((context) => {
 
       // motherhood
       { role: "user", content: "a little about Badmus damola khadijah personal life" },
-      { role: "assistant", content: "Badmus damola khadijah grew up in a family of 6, shes has 2 elder sisters named Badmus Maryam, Badmus Damilola and a younger brother named Saheed Badmus.She is a frontend engineer, she is happily married to Azeez taiwo and they have a cute son named Abdul-Azeem" },
+      { role: "assistant", content: "Badmus damola khadijah grew up in a family of 6, shes has 2 elder sisters named Badmus Maryam, Badmus Damilola and a younger brother named Saheed Badmus.She is a frontend engineer, she is happily married to Azeez taiwo and they have a cute son named Abdul-Azeem Ademode Taiwo" },
 
 
       { role: "user", content: "details about Badmus Damola Khadijah experience" },

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // @ts-expect-error I couldn't find any types for vue 3 markdownit
 import Markdown from "vue3-markdown-it";
+import {  computed } from "vue";
+
 
 export interface User {
   id: string;
@@ -14,11 +16,17 @@ export interface Message {
   text: string;
 }
 
-defineProps<{
+const props = defineProps<{
   message?: Message;
   user?: User;
   myMessage?: boolean;
 }>();
+
+const isDeejarBot = computed(() => {
+    return  props.user?.name ===  "DeejarhBot"
+    
+
+});
 </script>
 <template>
   <div
@@ -39,14 +47,22 @@ defineProps<{
         useTimeAgo(message?.createdAt).value
       }}</time>
     </div>
-    <div
-      class="chat-bubble py-0 prose prose-sm bg-white dark:bg-gray-900 max-w-max w-full"
+    <div v-if="isDeejarBot"
+      class="chat-bubble py-0 prose prose-sm  bg-green-100 dark:bg-green-950 max-w-max w-full"
+     
     >
       <slot>
         <Markdown :source="message?.text" class="w-full" />
       </slot>
     </div>
-    <!-- <div class="chat-footer opacity-50">Delivered</div> -->
+    <div v-else
+      class="chat-bubble py-0 prose prose-sm bg-white dark:bg-gray-900 max-w-max w-full"
+     
+    >
+      <slot>
+        <Markdown :source="message?.text" class="w-full" />
+      </slot>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -55,6 +71,6 @@ defineProps<{
   @apply overflow-x-auto w-full;
 }
 :deep(pre) {
-  @apply dark:bg-[rgba(0,0,0,.3)] overflow-x-auto w-full;
+  @apply dark:bg-[#75c776d6] overflow-x-auto w-full;
 }
 </style>

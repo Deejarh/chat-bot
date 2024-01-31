@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { nanoid } from "nanoid";
 import anime from "animejs";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 export interface User {
   id: string;
@@ -37,6 +37,7 @@ const messages = ref<Message[]>([]);
 const usersTyping = ref<User[]>([]);
 const animatedElement = ref(null);
 const avatarElement = ref(null);
+const arrowIcon = ref(null);
 const input = ref('');
 const userInput = ref('')
 
@@ -147,18 +148,42 @@ const animateAvatar = () => {
     duration: 1500,
   });
 };
+const animateIcon = () => {
+    anime({
+    targets: arrowIcon.value,
+    opacity: 1,
+    duration: 1000,
+    easing: 'easeInOutQuad',
+  });
+};
 
 onMounted(() => {
+animateIcon()
   animateText();
   animateAvatar();
 });
 </script>
 <template>
   <div class="w-full">
+<div @click="toggleChatBox" v-show="!isOpenChatBox">
+    <div class="flex items-center justify-center mb-3 lg:mb-1">
+        <span>Click to chat with me</span>
+        <svg
+        ref="arrowIcon"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 ml-2"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 2a1 1 0 0 1 1 1v12.586l3.707-3.707a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 1 1 1.414-1.414L9 15.586V3a1 1 0 0 1 1-1z"
+        />
+      </svg>
+      </div>
     <div
-      @click="toggleChatBox"
+      
       class="flex items-center justify-center cursor-pointer"
-      v-show="!isOpenChatBox"
     >
       <div ref="animatedElement" class="ml9 mr-2 text-lg lg:text-5xl">
         Chat with DeejarhBot
@@ -169,6 +194,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
+</div>
 
     <div
       v-if="isOpenChatBox"
@@ -176,20 +202,20 @@ onMounted(() => {
     >
       <!-- Header -->
       <header
-        class="dark:bg-gray-900 bg-gray-200 flex justify-between items-center w-full px-1 py-2 rounded-t-md"
+        class="dark:bg-gray-900 bg-gray-200 flex justify-between items-center w-full px-3 py-2 rounded-t-md"
       >
         Deejar Bot
 
         <div
           @click="toggleChatBox"
-          class="cursor-pointer p-3 rounded-md dark:bg-red-950 bg-gray-950"
+          class="cursor-pointer p-3 rounded-md shadow bg-gray-950"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-4 w-4"
             fill="none"
             viewBox="0 0 24 24"
-            stroke="currentColor"
+            stroke="white"
           >
             <path
               stroke-linecap="round"
@@ -237,7 +263,7 @@ onMounted(() => {
       </div>
       <!-- Footer -->
       <footer class="p-2">
-        <div class="input-container relative p-2 rounded">
+        <div class=" flex  gap-x-2  p-2 rounded">
           <input
           v-model="userInput"
             ref="input"
@@ -258,7 +284,7 @@ onMounted(() => {
 
           <div
             v-show="!isUserMe"
-            class="send-button absolute text-xs top-0 right-0 mt-4 mr-4 px-4 py-2 dark:bg-gray-900 bg-gray-200 text-black dark:text-white rounded-full hover:bg-gray-950 focus:outline-none"
+            class=" text-xs  flex items-center justify-center shadow-sm  px-2 bg-gray-900   rounded-xl hover:bg-gray-950 focus:outline-none"
             :class="[userInput ? ' cursor-pointer' : 'cursor-not-allowed' ]"
             v-on="userInput ? { click: () => 
         handleNewMessage({
@@ -268,7 +294,17 @@ onMounted(() => {
           text: userInput,
         }) } : {}"
           >
-            Send
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 font-bold text-white mb-2"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a1 1 0 0 1-1-1v-6.586l-4.707 4.707a1 1 0 0 1-1.414-1.414l6-6a1 1 0 0 1 1.414 0l6 6a1 1 0 1 1-1.414 1.414L11 10.414V17a1 1 0 0 1-1 1z"
+          />
+        </svg>
           </div>
         </div>
 
