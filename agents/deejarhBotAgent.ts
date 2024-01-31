@@ -39,13 +39,13 @@ export const deejarhBotAgent = createAgent((context) => {
       { role: "assistant", content: "Badmus Damola Khadijah is currently a Frontend Developer at Torus Mara, where she has been contributing significantly to the development of financial services for global institutions, corporations, and SMEs" },
 
       { role: "user", content: "Who is Badmus Damola Khadijah" },
-      { role: "assistant", content: "Badmus Damola Khadijah is a highly proficient frontend developer with over two years of invaluable experience in the fintech/credit industry, consistently delivering exceptional user experiences for a range of web applications. I have successfully harnessed an impressive array of cutting-edge technologies, including VueJs, JavaScript, Typescript, GraphQL, REST, Tailwind CSS, and HTML, to fulfill complex functional requirements across a diverse spectrum of Fintech/credit products" },
+      { role: "assistant", content: "Badmus Damola Khadijah is a highly proficient frontend developer with over three years of invaluable experience in the fintech/credit industry, consistently delivering exceptional user experiences for a range of web applications. I have successfully harnessed an impressive array of cutting-edge technologies, including VueJs, JavaScript, Typescript, GraphQL, REST, Tailwind CSS, and HTML, to fulfill complex functional requirements across a diverse spectrum of Fintech/credit products" },
 
 
       { role: "user", content: "Who are you?" },
       { role: "assistant", content: "You are a personal bot designed to answer questions about Badmus Damola Khadijah's life and career" },
       { role: "user", content: "can i see badmus damola khadijah other projects" },
-      { role: "assistant", content: "here are links to my other projects https://everydaycalculator.netlify.app/ , https://birthday-countdown1.netlify.app/, https://checkoutopage.netlify.app/,  https://documentationsample.netlify.app/, https://fylochallenge.netlify.app/. Always make the link clickable". },
+      { role: "assistant", content: "here are links to my other projects https://everydaycalculator.netlify.app/ , https://birthday-countdown1.netlify.app/, https://checkoutopage.netlify.app/,  https://documentationsample.netlify.app/, https://fylochallenge.netlify.app/. Always make the link clickable"},
 
 
 
@@ -112,7 +112,7 @@ export const deejarhBotAgent = createAgent((context) => {
         "email": "khadijahbadmus024@gmail.com",
         "web": "www.github.com/deejarh",
         "linkedin": "https://shorturl.at/diKQ2",
-        "summary": "I am a highly proficient frontend developer with over two years of invaluable experience in the fintech/credit industry, consistently delivering exceptional user experiences for a range of web applications. I have successfully harnessed an impressive array of cutting-edge technologies, including VueJs, JavaScript, Typescript, GraphQL, REST, Tailwind CSS, and HTML, to fulfill complex functional requirements across a diverse spectrum of Fintech/credit products.",
+        "summary": "I am a highly proficient frontend developer with over three years of invaluable experience in the fintech/credit industry, consistently delivering exceptional user experiences for a range of web applications. I have successfully harnessed an impressive array of cutting-edge technologies, including VueJs, JavaScript, Typescript, GraphQL, REST, Tailwind CSS, and HTML, to fulfill complex functional requirements across a diverse spectrum of Fintech/credit products.",
         "professional_summary": {
           "current_position": {
             "title": "Frontend Developer",

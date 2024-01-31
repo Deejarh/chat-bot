@@ -27,6 +27,11 @@ const bot = ref<User>({
 });
 
 const users = computed(() => [me.value, bot.value]);
+const isUserMe = computed(() => {
+    const currentUser = usersTyping.value.map((user) => user.name ===  "You")
+    return currentUser.length > 0
+
+});
 const messages = ref<Message[]>([]);
 
 const usersTyping = ref<User[]>([]);
@@ -173,11 +178,11 @@ onMounted(() => {
       <header
         class="dark:bg-gray-900 bg-gray-200 flex justify-between items-center w-full px-1 py-2 rounded-t-md"
       >
-        Support Chat
+        Deejar Bot
 
         <div
           @click="toggleChatBox"
-          class="cursor-pointer p-3 rounded-md dark:bg-red-950 bg-gray-900"
+          class="cursor-pointer p-3 rounded-md dark:bg-red-950 bg-gray-950"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -252,8 +257,9 @@ onMounted(() => {
           />
 
           <div
+            v-show="!isUserMe"
             class="send-button absolute text-xs top-0 right-0 mt-4 mr-4 px-4 py-2 dark:bg-gray-900 bg-gray-200 text-black dark:text-white rounded-full hover:bg-gray-950 focus:outline-none"
-            :class="[userInput ? ' cursor-pointer' : 'cursor-not-allowed opacity-60' ]"
+            :class="[userInput ? ' cursor-pointer' : 'cursor-not-allowed' ]"
             v-on="userInput ? { click: () => 
         handleNewMessage({
           id: nanoid(),
