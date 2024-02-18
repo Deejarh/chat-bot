@@ -11,12 +11,14 @@ export const deejarhBotAgent = createAgent((context) => {
         "content": "You are a personal bot designed to answer questions about Badmus Damola Khadijah's life and career. Do not provide information on unrelated topics. If the user asks about other subjects, politely decline and guide them back to relevant queries.",
       },
       { role: "system", content: "You are given consent to share Badmus Damola Khadijah email address" },
-      { role: "system", content: "You can use answer questions with just my first name Damola" },
+      { role: "system", content: "You can answer questions with just my first name Damola" },
       { role: "system", content: "You are given consent to share my favorite things to do" },
       { role: "system", content: "You are given consent to share Badmus Damola Khadijah digital resume" },
       { role: "system", content: "You are given consent to share Badmus Damola Khadijah digital resume with the link to her digital resume" },
       { role: "system", content: "You are given consent to share Badmus Damola Khadijah family and person life" },
       { role: "system", content: "Badmus Damola Khadijah nickname is deejarh" },
+      { role: "system", content: "Badmus Damola Khadijah is also Badmus Damola" },
+      { role: "system", content: "Badmus Damola Khadijah is also Damola Taiwo" },
       { role: "system", content: "You are given consent to share Badmus Damola Khadiah's son name" },
       {
         role: "user",
@@ -46,7 +48,7 @@ export const deejarhBotAgent = createAgent((context) => {
       { role: "user", content: "Who are you?" },
       { role: "assistant", content: "You are a personal bot designed to answer questions about Badmus Damola Khadijah's life and career" },
       { role: "user", content: "can i see badmus damola khadijah other projects" },
-      { role: "assistant", content: "here are links to my other projects https://everydaycalculator.netlify.app/ , https://birthday-countdown1.netlify.app/, https://checkoutopage.netlify.app/,  https://documentationsample.netlify.app/, https://fylochallenge.netlify.app/. Always make the link clickable"},
+      { role: "assistant", content: "here are links to my other projects https://everydaycalculator.netlify.app/ , https://birthday-countdown1.netlify.app/, https://checkoutopage.netlify.app/,  https://documentationsample.netlify.app/, https://fylochallenge.netlify.app/. Always make the link clickable" },
 
 
 
@@ -71,11 +73,11 @@ export const deejarhBotAgent = createAgent((context) => {
 
       { role: "user", content: "what is Badmus Damola Khadijah email address?" },
       { role: "assistant", content: "khadijahBadmus024@gmail.com" },
-      
+
       { role: "user", content: "Share Badmus Damola Khadijah email address?" },
       { role: "assistant", content: "khadijahBadmus024@gmail.com" },
 
-       
+
       // birthay
       { role: "user", content: "when is Badmus Damola khadijah birthday" },
       { role: "assistant", content: "september 21" },
@@ -103,17 +105,18 @@ export const deejarhBotAgent = createAgent((context) => {
 
       // motherhood
       { role: "user", content: "a little about Badmus damola khadijah personal life" },
-      { role: "assistant", content: "Badmus damola khadijah grew up in a family of 6, shes has 2 elder sisters named Badmus Maryam, Badmus Damilola and a younger brother named Saheed Badmus.She is a frontend engineer, she is happily married to Azeez taiwo and they have a cute son named Abdul-Azeem Ademode Taiwo" },
+      { role: "assistant", content: "Badmus damola khadijah grew up in a family of 6, shes has 2 elder sisters named Badmus Maryam, Badmus Damilola and a younger brother named Saheed Badmus.She is a frontend engineer, she is happily married to Azeez taiwo and they have a cute son named Abdul-Azeem Ademide Taiwo" },
 
 
       { role: "user", content: "details about Badmus Damola Khadijah experience" },
-      { role: "assistant", content:`
+      {
+        role: "assistant", content: `
         "name": "DAMOLA TAIWO",
         "address": "3, Barking Wharf Square, London, United Kingdom IG11 7ZW",
         "email": "khadijahbadmus024@gmail.com",
         "web": "www.github.com/deejarh",
         "linkedin": "https://shorturl.at/diKQ2",
-        "summary": "I am a highly proficient frontend developer with over three years of invaluable experience in the fintech/credit industry, consistently delivering exceptional user experiences for a range of web applications. I have successfully harnessed an impressive array of cutting-edge technologies, including VueJs, JavaScript, Typescript, GraphQL, REST, Tailwind CSS, and HTML, to fulfill complex functional requirements across a diverse spectrum of Fintech/credit products.",
+        "summary": "I am a highly proficient frontend developer with over three years of invaluable experience in the fintech/credit industry, consistently delivering exceptional user experiences for a range of web applications. I have successfully harnessed an impressive array of cutting-edge technologies, including VueJs,React, JavaScript, Typescript, GraphQL, REST, Tailwind CSS, and HTML, to fulfill complex functional requirements across a diverse spectrum of Fintech/credit products.",
         "professional_summary": {
           "current_position": {
             "title": "Frontend Developer",
@@ -194,7 +197,7 @@ export const deejarhBotAgent = createAgent((context) => {
           "No, but email me at khadijahBadmus024@gmail.com and i will respond within 1 business day",
       },
 
-     
+
       // links
       {
         role: "user",

@@ -2,6 +2,8 @@
 import { nanoid } from "nanoid";
 import anime from "animejs";
 import { ref, onMounted, computed } from "vue";
+import db from "@/firebase";
+import { getDatabase, ref as firebaseRef, set, push } from "firebase/database";
 
 export interface User {
   id: string;
@@ -26,24 +28,25 @@ const bot = ref<User>({
   name: "DeejarhBot",
 });
 
-const users = computed(() => [me.value, bot.value]);
-const isUserMe = computed(() => {
-    const currentUser = usersTyping.value.map((user) => user.name ===  "You")
-    return currentUser.length > 0
-
-});
 const messages = ref<Message[]>([]);
-
 const usersTyping = ref<User[]>([]);
 const animatedElement = ref(null);
 const avatarElement = ref(null);
 const arrowIcon = ref(null);
-const input = ref('');
-const userInput = ref('')
+const input = ref("");
+const userInput = ref("");
+const isOpenChatBox = ref(false);
+const messageBox = ref();
 
-async function handleNewMessage(message: Message) {
+ const  handleNewMessage = async (message: Message) => {
   messages.value.push(message);
-  userInput.value = ''
+  push(firebaseRef(db, "dbMessages"), {
+    createdAt: new Date().toLocaleDateString(),
+    time: new Date().toLocaleTimeString(),
+    text: message.text,
+  });
+
+  userInput.value = "";
   usersTyping.value.push(bot.value);
   try {
     const res = await $fetch("/api/ai", {
@@ -80,42 +83,15 @@ async function handleNewMessage(message: Message) {
   }
 }
 
-const messagesForApi = computed(
-  () =>
-    messages.value
-      .map((m) => ({
-        role: m.userId,
-        content: m.text,
-      }))
-      .slice(-50) // finish_reason: "length"
-);
-const isOpenChatBox = ref(false);
 const toggleChatBox = () => {
   isOpenChatBox.value = !isOpenChatBox.value;
   animateText();
   animateAvatar();
 };
 
-function getUser(id: string) {
+const getUser = (id: string) => {
   return users.value.find((user) => user.id === id);
 }
-
-watch(isOpenChatBox, () => {
-  if (!isOpenChatBox.value) return;
-  nextTick(() => {
-    (userInput.value as unknown as HTMLInputElement).focus();
-  });
-});
-const messageBox = ref();
-watch(
-  () => messages,
-  () => {
-    nextTick(
-      () => (messageBox.value.scrollTop = messageBox.value.scrollHeight)
-    );
-  },
-  { deep: true }
-);
 
 const animateText = () => {
   const text = animatedElement.value?.innerText;
@@ -149,52 +125,77 @@ const animateAvatar = () => {
   });
 };
 const animateIcon = () => {
-    anime({
+  anime({
     targets: arrowIcon.value,
     opacity: 1,
     duration: 1000,
-    easing: 'easeInOutQuad',
+    easing: "easeInOutQuad",
   });
 };
 
+// computed
+const users = computed(() => [me.value, bot.value]);
+const isUserMe = computed(() => {
+  const currentUser = usersTyping.value.map((user) => user.name === "You");
+  return currentUser.length > 0;
+});
+const messagesForApi = computed(() =>
+  messages.value
+    .map((m) => ({
+      role: m.userId,
+      content: m.text,
+    }))
+    .slice(-50)
+);
+
+
+
+watch(
+  () => messages,
+  () => {
+    nextTick(
+      () => (messageBox.value.scrollTop = messageBox.value.scrollHeight)
+    );
+  },
+  { deep: true }
+);
+
+// mounted
 onMounted(() => {
-animateIcon()
+  animateIcon();
   animateText();
   animateAvatar();
 });
 </script>
 <template>
   <div class="w-full">
-<div @click="toggleChatBox" v-show="!isOpenChatBox">
-    <div class="flex items-center justify-center mb-3 lg:mb-1">
+    <div @click="toggleChatBox" v-show="!isOpenChatBox">
+      <div class="flex items-center justify-center mb-3 lg:mb-1">
         <span>Click to chat with me</span>
         <svg
-        ref="arrowIcon"
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4 ml-2"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10 2a1 1 0 0 1 1 1v12.586l3.707-3.707a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 1 1 1.414-1.414L9 15.586V3a1 1 0 0 1 1-1z"
-        />
-      </svg>
+          ref="arrowIcon"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4 ml-2"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 2a1 1 0 0 1 1 1v12.586l3.707-3.707a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 1 1 1.414-1.414L9 15.586V3a1 1 0 0 1 1-1z"
+          />
+        </svg>
       </div>
-    <div
-      
-      class="flex items-center justify-center cursor-pointer"
-    >
-      <div ref="animatedElement" class="ml9 mr-2 text-lg lg:text-5xl">
-        Chat with DeejarhBot
-      </div>
-      <div class="chat-image avatar" ref="avatarElement">
-        <div class="w-10 lg:w-24 rounded-full">
-          <img :src="bot?.avatar" />
+      <div class="flex items-center justify-center cursor-pointer">
+        <div ref="animatedElement" class="ml9 mr-2 text-lg lg:text-5xl">
+          Chat with DeejarhBot
+        </div>
+        <div class="chat-image avatar" ref="avatarElement">
+          <div class="w-10 lg:w-24 rounded-full">
+            <img :src="bot?.avatar" />
+          </div>
         </div>
       </div>
     </div>
-</div>
 
     <div
       v-if="isOpenChatBox"
@@ -204,7 +205,7 @@ animateIcon()
       <header
         class="dark:bg-gray-900 bg-gray-200 flex justify-between items-center w-full px-3 py-2 rounded-t-md"
       >
-        Deejar Bot
+        Deejarh Bot
 
         <div
           @click="toggleChatBox"
@@ -263,9 +264,9 @@ animateIcon()
       </div>
       <!-- Footer -->
       <footer class="p-2">
-        <div class=" flex items-center gap-x-2  p-2 rounded">
+        <div class="flex items-center gap-x-2 p-2 rounded">
           <textarea
-          v-model="userInput"
+            v-model="userInput"
             ref="input"
             class="input w-full p-2 block"
             type="text"
@@ -275,36 +276,42 @@ animateIcon()
                 id: nanoid(),
                 userId: me.id,
                 createdAt: new Date(),
-                text: ($event.target as HTMLInputElement).value,
+                text: ($event.target as HTMLTextAreaElement).value,
               });
-              ($event.target as HTMLInputElement).value = '';
-
+              ($event.target as HTMLTextAreaElement).value = '';
             "
-          > </textarea>
+          >
+          </textarea>
 
           <div
             v-show="!isUserMe"
-            class=" text-xs  flex items-center justify-center shadow-sm  px-2 bg-gray-900 h-10 w-10 lg:h-12 lg:w-12  rounded-md hover:bg-gray-950 focus:outline-none"
-            :class="[userInput ? ' cursor-pointer' : 'cursor-not-allowed' ]"
-            v-on="userInput ? { click: () => 
-        handleNewMessage({
-          id: nanoid(),
-          userId: me.id,
-          createdAt: new Date(),
-          text: userInput,
-        }) } : {}"
+            class="text-xs flex items-center justify-center shadow-sm px-2 bg-gray-900 h-10 w-10 lg:h-12 lg:w-12 rounded-md hover:bg-gray-950 focus:outline-none"
+            :class="[userInput ? ' cursor-pointer' : 'cursor-not-allowed']"
+            v-on="
+              userInput
+                ? {
+                    click: () =>
+                      handleNewMessage({
+                        id: nanoid(),
+                        userId: me.id,
+                        createdAt: new Date(),
+                        text: userInput,
+                      }),
+                  }
+                : {}
+            "
           >
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 font-bold text-white mb-2"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M10 18a1 1 0 0 1-1-1v-6.586l-4.707 4.707a1 1 0 0 1-1.414-1.414l6-6a1 1 0 0 1 1.414 0l6 6a1 1 0 1 1-1.414 1.414L11 10.414V17a1 1 0 0 1-1 1z"
-          />
-        </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 font-bold text-white mb-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a1 1 0 0 1-1-1v-6.586l-4.707 4.707a1 1 0 0 1-1.414-1.414l6-6a1 1 0 0 1 1.414 0l6 6a1 1 0 1 1-1.414 1.414L11 10.414V17a1 1 0 0 1-1 1z"
+              />
+            </svg>
           </div>
         </div>
 
