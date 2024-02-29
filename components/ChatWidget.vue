@@ -4,6 +4,7 @@ import anime from "animejs";
 import { ref, onMounted, computed } from "vue";
 import db from "@/firebase";
 import { getDatabase, ref as firebaseRef, set, push } from "firebase/database";
+import LogoIcon from "@/assets/icons/LogoIcon"
 
 export interface User {
   id: string;
@@ -205,7 +206,7 @@ onMounted(() => {
       <header
         class="dark:bg-gray-900 bg-gray-200 flex justify-between items-center w-full px-3 py-2 rounded-t-md"
       >
-        Deejarh Bot
+        <div><logo-icon/></div>
 
         <div
           @click="toggleChatBox"
@@ -268,7 +269,7 @@ onMounted(() => {
           <textarea
             v-model="userInput"
             ref="input"
-            class="input w-full p-2 block"
+            class="input w-full p-2 block resize-none"
             type="text"
             placeholder="Type your message"
             @keypress.enter="

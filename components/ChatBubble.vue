@@ -48,7 +48,7 @@ const isDeejarBot = computed(() => {
       }}</time>
     </div>
     <div v-if="isDeejarBot"
-      class="chat-bubble py-0 prose prose-sm  bg-blue-100 dark:bg-blue-900 dark:text-white text-black max-w-max w-full"
+      class="chat-bubble py-0 prose prose-sm  bg-blue-100 dark:bg-red-400 dark:text-gray-200 text-black max-w-max w-full"
      
     >
       <slot>
