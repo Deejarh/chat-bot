@@ -5,6 +5,7 @@ import { ref, onMounted, computed } from "vue";
 import db from "@/firebase";
 import { getDatabase, ref as firebaseRef, set, push } from "firebase/database";
 import LogoIcon from "@/assets/icons/LogoIcon"
+import ArrowDown from "@/assets/icons/ArrowDownIcon"
 
 export interface User {
   id: string;
@@ -173,18 +174,7 @@ onMounted(() => {
     <div @click="toggleChatBox" v-show="!isOpenChatBox">
       <div class="flex items-center justify-center mb-3 lg:mb-1">
         <span>Click to chat with me</span>
-        <svg
-          ref="arrowIcon"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4 ml-2"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M10 2a1 1 0 0 1 1 1v12.586l3.707-3.707a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 1 1 1.414-1.414L9 15.586V3a1 1 0 0 1 1-1z"
-          />
-        </svg>
+        <arrow-down/>
       </div>
       <div class="flex items-center justify-center cursor-pointer">
         <div ref="animatedElement" class="ml9 mr-2 text-lg lg:text-5xl">
@@ -200,7 +190,7 @@ onMounted(() => {
 
     <div
       v-if="isOpenChatBox"
-      class="box bg-gray-300 dark:bg-gray-800 rounded w-[380px] overflow-hidden"
+      class="box bg-gray-300 dark:bg-gray-800 rounded w-[380px] overflow-hidden "
     >
       <!-- Header -->
       <header
@@ -242,7 +232,7 @@ onMounted(() => {
                 </div>
               </div> </span
           ></strong>
-          <strong class="block lg:mt-10 mt-5"
+          <strong class="block lg:mt-10 mt-5 "
             >Go ahead and ask something:</strong
           >
           <ul class="list-inside list-disc text-left text-xs mt-2 lg:text-sm">
